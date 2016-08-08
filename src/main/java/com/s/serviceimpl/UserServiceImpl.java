@@ -15,7 +15,7 @@ import com.s.dao.UserDAO;
 import com.s.daoimpl.UserDAOImpl;
 import com.s.entities.User;
 import com.s.service.UserService;
-@Path("users")
+@Path("/users")
 public class UserServiceImpl implements UserService{
 	private UserDAO userDAO=new UserDAOImpl();
 	@Override
@@ -24,14 +24,16 @@ public class UserServiceImpl implements UserService{
 	@Produces("application/json")
 	@Path("create")
 	public String createUser(User user) {
+		System.out.println(user);	
 		try{
 			if(userDAO.createUser(user)){
-				return "{result:SUCCESS}";
+				return "{\"result\":\"SUCCESS\"}";
 			}else{
-				return "{result:FAILED,cause:FAILED_TO_ADD}";
+				return "{\"result\":\"FAILED\",\"cause\":\"FAILED_TO_ADD\"}";
 			}
 		}catch(ClassNotFoundException|SQLException|IOException ex){
-			return "{result:FAILED,cause:INTERNAL_ERROR}";
+			ex.printStackTrace();
+			return "{\"result\":\"FAILED\",\"cause\":\"INTERNAL_SERVER_ERROR\"}";
 		}		
 	}
 
@@ -53,6 +55,7 @@ public class UserServiceImpl implements UserService{
 	@GET
 	@Produces("application/json")
 	public Set<User> getAllUsers() {
+		System.out.println("Reached2");
 		try{
 			return userDAO.getAllUsers();			
 		}catch(ClassNotFoundException|SQLException|IOException ex){

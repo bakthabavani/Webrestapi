@@ -12,5 +12,5 @@ public interface UserDAO {
 	public User getUser(int userID) throws ClassNotFoundException, IOException, SQLException;
 	/*public boolean deleteUser(int userID);
 	public boolean updateUser(User user); */
-	public Set<User> getAllUsers() throws ClassNotFoundException, IOException, SQLException;
+	public Set<User> getAllUsers() throws ClassNotFoundException, IOException, SQLException;	
 }

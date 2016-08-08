@@ -2,9 +2,13 @@ package com.s.entities;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 @XmlRootElement
 public class Review {
+	@JsonIgnore
 	private Movie movie;
+	@JsonIgnore
 	private User  user;
 	private int   rating;
 	public Review(Movie movie, User user, int rating) {
@@ -13,6 +17,12 @@ public class Review {
 		this.user = user;
 		this.rating = rating;
 	}
+	
+	public Review(int rating) {
+		super();
+		this.rating = rating;
+	}
+
 	public Review() {
 		super();
 	}

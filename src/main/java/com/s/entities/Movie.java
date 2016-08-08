@@ -7,24 +7,21 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Movie {
 	private int movieID;
-	private String movieName;
-	private Date releaseDate;
+	private String movieName;	
 	private Genre genre;
 	private Set<Review> reviews;
 	
-	public Movie(int movieID, String movieName, Date releaseDate, Genre genre, Set<Review> reviews) {
+	public Movie(int movieID, String movieName, Genre genre, Set<Review> reviews) {
 		super();
 		this.movieID = movieID;
-		this.movieName = movieName;
-		this.releaseDate = releaseDate;
+		this.movieName = movieName;		
 		this.genre = genre;
 		this.reviews = reviews;
 	}
-	public Movie(int movieID, String movieName, Date releaseDate, Genre genre) {
+	public Movie(int movieID, String movieName, Genre genre) {
 		super();
 		this.movieID = movieID;
 		this.movieName = movieName;
-		this.releaseDate = releaseDate;
 		this.genre = genre;
 	}
 	public Movie() {
@@ -48,13 +45,7 @@ public class Movie {
 	}
 	public void setGenre(Genre genre) {
 		this.genre = genre;
-	}
-	public Date getReleaseDate() {
-		return releaseDate;
-	}
-	public void setReleaseDate(Date releaseDate) {
-		this.releaseDate = releaseDate;
-	}
+	}	
 	
 	public Set<Review> getReviews() {
 		return reviews;
@@ -84,7 +75,7 @@ public class Movie {
 	}
 	@Override
 	public String toString() {
-		return "Movie [movieID=" + movieID + ", movieName=" + movieName + ", releaseDate=" + releaseDate + "]";
+		return "Movie [movieID=" + movieID + ", movieName=" + movieName + "]";
 	}
 	
 	

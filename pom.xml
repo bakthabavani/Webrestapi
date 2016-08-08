@@ -50,10 +50,18 @@
     </dependencyManagement>
 
     <dependencies>
+    	
+				    	
 		<dependency>
 		    <groupId>org.glassfish.jersey.containers</groupId>
 		    <artifactId>jersey-container-servlet-core</artifactId>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.glassfish.jersey.core/jersey-client -->
+		<dependency>
+		    <groupId>org.glassfish.jersey.core</groupId>
+		    <artifactId>jersey-client</artifactId>		    
+		</dependency>
+				
 		<dependency>
 		    <groupId>org.glassfish.jersey.media</groupId>
 		    <artifactId>jersey-media-moxy</artifactId>
@@ -79,7 +87,14 @@
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<version>1.4.192</version>
+		</dependency>		
+		<dependency>
+		    <groupId>org.codehaus.jackson</groupId>
+		    <artifactId>jackson-mapper-asl</artifactId>
+		    <version>1.5.0</version>
 		</dependency>
+
+				
     </dependencies>
     <properties>
         <jersey.version>2.23.1</jersey.version>

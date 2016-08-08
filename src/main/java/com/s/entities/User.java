@@ -1,40 +1,47 @@
 package com.s.entities;
 
-import java.util.Date;
-
 import javax.xml.bind.annotation.XmlRootElement;
+
 @XmlRootElement
 public class User {
 	private int userID;
-	private String username;
-	private Date dateOfBirth;
+	private String username;	
+	private int age;
 	public User() {
 		super();
 	}
-	public User(int userID, String username, Date dateOfBirth) {
+	
+	public User(int userID, String username, int age) {
 		super();
 		this.userID = userID;
 		this.username = username;
-		this.dateOfBirth = dateOfBirth;
+		this.age = age;
 	}
+
 	public int getUserID() {
 		return userID;
 	}
+
 	public void setUserID(int userID) {
 		this.userID = userID;
 	}
+
 	public String getUsername() {
 		return username;
 	}
+
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	public Date getDateOfBirth() {
-		return dateOfBirth;
+
+	public int getAge() {
+		return age;
 	}
-	public void setDateOfBirth(Date dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
+
+	public void setAge(int age) {
+		this.age = age;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -57,7 +64,7 @@ public class User {
 	}
 	@Override
 	public String toString() {
-		return "User [userID=" + userID + ", username=" + username + ", dateOfBirth=" + dateOfBirth + "]";
+		return "User [userID=" + userID + ", username=" + username + ", age=" + age + "]";
 	}
 	
 	

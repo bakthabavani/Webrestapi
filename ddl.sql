@@ -3,7 +3,7 @@ CREATE TABLE S_USERS
 (
 	user_id	INT PRIMARY KEY AUTO_INCREMENT,
 	username VARCHAR(75),
-	date_of_birth DATE,
+	age INT,
 );
 DROP TABLE IF EXISTS S_GENRES;
 CREATE TABLE S_GENRES
@@ -16,7 +16,6 @@ CREATE TABLE S_MOVIES
 (
 	movie_id INT PRIMARY KEY AUTO_INCREMENT,
 	movie_name VARCHAR(75),
-	release_date	DATE,
 	genre_id		INT,
 	CONSTRAINT movies_fk FOREIGN KEY(genre_id) REFERENCES S_GENRES(genre_id)
 );

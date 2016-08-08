@@ -2,7 +2,6 @@ package com.s.daoimpl;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,9 +9,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.Produces;
-
 import com.s.configs.H2DBConfigurer;
 import com.s.dao.UserDAO;
 import com.s.entities.User;
@@ -25,14 +21,15 @@ public class UserDAOImpl implements UserDAO{
 		Connection conn=null;
 		PreparedStatement pstmt=null;
 		try{
-			H2DBConfigurer config=new H2DBConfigurer();
+			H2DBConfigurer config=H2DBConfigurer.getConfigurer();
 			conn=config.getConnection();
-			pstmt=conn.prepareStatement("INSERT INTO S_USERS(username,dateOfBirth) VALUES(?,?)");
+			pstmt=conn.prepareStatement("INSERT INTO S_USERS(username,age) VALUES(?,?)");
 			pstmt.setString(1, user.getUsername());
-			pstmt.setDate(2, new Date(user.getDateOfBirth().getTime()));
+			pstmt.setInt(2, user.getAge());
+			System.out.println("Executed");
 			return pstmt.executeUpdate()>0?true:false;
 		}finally{
-			conn.close();
+			if(conn!=null)conn.close();
 		}		
 	}
 
@@ -41,13 +38,13 @@ public class UserDAOImpl implements UserDAO{
 		Connection conn=null;
 		PreparedStatement pstmt=null;
 		try{
-			H2DBConfigurer config=new H2DBConfigurer();
+			H2DBConfigurer config=H2DBConfigurer.getConfigurer();
 			conn=config.getConnection();
-			pstmt=conn.prepareStatement("SELECT user_id,username,date_of_birth FROM S_USERS WHERE user_id=?");
+			pstmt=conn.prepareStatement("SELECT user_id,username,age FROM S_USERS WHERE user_id=?");
 			pstmt.setInt(1, userID);
 			ResultSet rs=pstmt.executeQuery();
 			if(rs.next()){
-				return new User(rs.getInt("user_id"),rs.getString("username"),new java.util.Date(rs.getDate("date_of_birth").getTime()));
+				return new User(rs.getInt("user_id"),rs.getString("username"),rs.getInt("age"));
 			}else{
 				return null;
 			}			
@@ -62,12 +59,12 @@ public class UserDAOImpl implements UserDAO{
 		PreparedStatement pstmt=null;
 		Set<User> users=new HashSet<User>();
 		try{
-			H2DBConfigurer config=new H2DBConfigurer();
+			H2DBConfigurer config=H2DBConfigurer.getConfigurer();
 			conn=config.getConnection();
-			pstmt=conn.prepareStatement("SELECT user_id,username,date_of_birth FROM S_USERS");
+			pstmt=conn.prepareStatement("SELECT user_id,username,age FROM S_USERS");
 			ResultSet rs=pstmt.executeQuery();
 			while(rs.next()){
-				users.add(new User(rs.getInt("user_id"),rs.getString("username"),new java.util.Date(rs.getDate("date_of_birth").getTime())));
+				users.add(new User(rs.getInt("user_id"),rs.getString("username"),rs.getInt("age")));
 			}
 			return users;
 		}finally{
