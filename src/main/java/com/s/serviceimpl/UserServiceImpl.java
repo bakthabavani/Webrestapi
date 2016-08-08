@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Set;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -19,6 +20,7 @@ public class UserServiceImpl implements UserService{
 	private UserDAO userDAO=new UserDAOImpl();
 	@Override
 	@POST
+	@Consumes("application/json")
 	@Produces("application/json")
 	@Path("create")
 	public String createUser(User user) {
