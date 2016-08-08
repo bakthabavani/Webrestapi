@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Produces;
 
@@ -19,6 +20,7 @@ import com.s.entities.User;
 public class UserDAOImpl implements UserDAO{
 
 	@Override
+	@Consumes("application/json")
 	public boolean createUser(User user) throws ClassNotFoundException, IOException, SQLException {
 		Connection conn=null;
 		PreparedStatement pstmt=null;
