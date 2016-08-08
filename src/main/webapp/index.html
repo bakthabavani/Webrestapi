@@ -7,10 +7,42 @@
   	<div class="container">
   		<div class="row">
   			<div class="col-xs-12 col-sm-4">
-  				
+  				/webapi/users
   			</div>
   			<div class="col-xs-12 col-sm-8">
-  				right
+  				This loads all the users
+  			</div>
+  		</div>	
+  		<div class="row">
+  			<div class="col-xs-12 col-sm-4">
+  				/webapi/users/{id}
+  			</div>
+  			<div class="col-xs-12 col-sm-8">
+  				This loads the user with userid {id}
+  			</div>
+  		</div>	
+  		<div class="row">
+  			<div class="col-xs-12 col-sm-4">
+  				/webapi/movies/{id}
+  			</div>
+  			<div class="col-xs-12 col-sm-8">
+  				This loads the movie with movieid {id}
+  			</div>
+  		</div>	
+  		<div class="row">
+  			<div class="col-xs-12 col-sm-4">
+  				/webapi/movies/byuser?userID={id}
+  			</div>
+  			<div class="col-xs-12 col-sm-8">
+  				This loads all the movies watched by user {id}
+  			</div>
+  		</div>	
+  		<div class="row">
+  			<div class="col-xs-12 col-sm-4">
+  				/webapi/movies/genre?genre={genre_name}&userID={id}
+  			</div>
+  			<div class="col-xs-12 col-sm-8">
+  				This loads all the movies from the {genre} but rated by either 5years elder or older than the user {id} 
   			</div>
   		</div>	
   	</div>

@@ -16,7 +16,6 @@ import com.s.entities.User;
 public class UserDAOImpl implements UserDAO{
 
 	@Override
-	@Consumes("application/json")
 	public boolean createUser(User user) throws ClassNotFoundException, IOException, SQLException {
 		Connection conn=null;
 		PreparedStatement pstmt=null;
@@ -61,12 +60,16 @@ public class UserDAOImpl implements UserDAO{
 		try{
 			H2DBConfigurer config=H2DBConfigurer.getConfigurer();
 			conn=config.getConnection();
+			System.out.println(conn);
 			pstmt=conn.prepareStatement("SELECT user_id,username,age FROM S_USERS");
 			ResultSet rs=pstmt.executeQuery();
 			while(rs.next()){
 				users.add(new User(rs.getInt("user_id"),rs.getString("username"),rs.getInt("age")));
 			}
 			return users;
+		}catch(ClassNotFoundException| IOException| SQLException ex){
+			ex.printStackTrace();
+			throw ex;
 		}finally{
 			conn.close();
 		}

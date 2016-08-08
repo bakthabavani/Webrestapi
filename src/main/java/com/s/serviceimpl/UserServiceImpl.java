@@ -47,6 +47,7 @@ public class UserServiceImpl implements UserService{
 			user=userDAO.getUser(userID);
 			return user;			
 		}catch(ClassNotFoundException|SQLException|IOException ex){
+			ex.printStackTrace();
 			return null;
 		}		
 	}
@@ -59,6 +60,7 @@ public class UserServiceImpl implements UserService{
 		try{
 			return userDAO.getAllUsers();			
 		}catch(ClassNotFoundException|SQLException|IOException ex){
+			ex.printStackTrace();
 			return null;
 		}
 	}

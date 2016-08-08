@@ -4,33 +4,70 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Set;
 
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
+
 import com.s.dao.MovieDAO;
 import com.s.daoimpl.MovieDAOImpl;
 import com.s.entities.Movie;
 import com.s.service.MovieService;
 
-public class MovieServiceImpl implements MovieService{
-	MovieDAO movieDAO=new MovieDAOImpl();	
+@Path("/movies")
+public class MovieServiceImpl implements MovieService {
+	private MovieDAO movieDAO=new MovieDAOImpl();
 	@Override
-	public Movie getMovie(int movieID) {
+	@GET
+	@Produces("application/json")
+	@Path("{id}")
+	public Movie getMovie(@PathParam("id") int movieID) {
 		try {
-			movieDAO.getMovie(movieID);
-		} catch (ClassNotFoundException | SQLException | IOException e) {		
+			return this.movieDAO.getMovie(movieID);
+		} catch (ClassNotFoundException | SQLException | IOException e) {
 			e.printStackTrace();
+		}
+		return null;		
+	}
+
+	@Override
+	@GET
+	@Produces("application/json")
+	@Path("byuser")
+	public Set<Movie> getMoviesByUser(@QueryParam("userID") int userID){
+		try{
+			return this.movieDAO.getMoviesByUser(userID);
+		}catch(ClassNotFoundException | SQLException | IOException ex ){
+			ex.printStackTrace();
 		}
 		return null;
 	}
 
 	@Override
-	public Set<Movie> getMoviesByUser(int userID) {
-		// TODO Auto-generated method stub
+	@GET
+	@Produces("application/json")
+	@Path("bygenre")
+	public Set<Movie> getMoviesByGenre(@QueryParam("genre") String genre,@QueryParam("userID") int userID) {
+		try{
+			return this.movieDAO.getMoviesByGenre(genre, userID);
+		}catch(ClassNotFoundException | SQLException | IOException ex ){
+			ex.printStackTrace();
+		}
 		return null;
 	}
 
 	@Override
-	public Set<Movie> getMoviesByGenre(String genre, int userID) {
-		// TODO Auto-generated method stub
-		return null;
+	@GET
+	@Produces(MediaType.TEXT_HTML)
+	@Path("ratings/{id}")
+	public String getAvgRatings(@PathParam("id") int movieID) {
+		try{
+			return this.movieDAO.getAvgRatings(movieID)+"";
+		}catch(ClassNotFoundException | SQLException | IOException ex ){
+			ex.printStackTrace();
+		}
+		return "No Ratings";
 	}
-
 }

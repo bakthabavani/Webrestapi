@@ -50,12 +50,6 @@ INSERT INTO S_MOVIE_RATINGS(movie_id,user_id,rating) VALUES(4,5,1);
 INSERT INTO S_MOVIE_RATINGS(movie_id,user_id,rating) VALUES(5,5,5);
 INSERT INTO S_MOVIE_RATINGS(movie_id,user_id,rating) VALUES(6,5,4);
 
-INSERT INTO S_MOVIE_RATINGS(movie_id,user_id,rating) VALUES(1,6,5);
-INSERT INTO S_MOVIE_RATINGS(movie_id,user_id,rating) VALUES(2,6,1);
-INSERT INTO S_MOVIE_RATINGS(movie_id,user_id,rating) VALUES(3,6,4);
-INSERT INTO S_MOVIE_RATINGS(movie_id,user_id,rating) VALUES(4,6,5);
-INSERT INTO S_MOVIE_RATINGS(movie_id,user_id,rating) VALUES(5,6,5);
-INSERT INTO S_MOVIE_RATINGS(movie_id,user_id,rating) VALUES(6,6,2);
 
 
 
