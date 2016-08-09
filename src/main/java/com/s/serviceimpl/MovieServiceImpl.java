@@ -35,7 +35,7 @@ public class MovieServiceImpl implements MovieService {
 	@Override
 	@GET
 	@Produces("application/json")
-	@Path("byuser")
+	@Path("byuser/deprecated")
 	public Set<Movie> getMoviesByUser(@QueryParam("userID") int userID){
 		try{
 			return this.movieDAO.getMoviesByUser(userID);
@@ -70,4 +70,18 @@ public class MovieServiceImpl implements MovieService {
 		}
 		return "No Ratings";
 	}
+
+	@Override
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("byuser")
+	public String getMoviesByUserJSON(@QueryParam("userID") int userID) {
+		try{
+			return this.movieDAO.getMoviesByUserJSON(userID);
+		}catch(ClassNotFoundException | SQLException | IOException ex){
+			ex.printStackTrace();
+		}
+		return null;
+	}
+	
 }

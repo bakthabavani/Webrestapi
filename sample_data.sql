@@ -4,9 +4,9 @@ INSERT INTO S_USERS(username,age)	VALUES('Krishna',30);
 INSERT INTO S_USERS(username,age)	VALUES('Sam',35);
 INSERT INTO S_USERS(username,age)	VALUES('Jhon',16);
 
-INSERT INTO S_GENRES(genre_name)	VALUES('Comedy');
-INSERT INTO S_GENRES(genre_name)	VALUES('ScienceFiction');
-INSERT INTO S_GENRES(genre_name)	VALUES('Horror');
+INSERT INTO S_GENRES(genre_name)	VALUES('comedy');
+INSERT INTO S_GENRES(genre_name)	VALUES('sciencefiction');
+INSERT INTO S_GENRES(genre_name)	VALUES('horror');
 
 INSERT INTO S_MOVIES(movie_name,genre_id) VALUES('Party',1);
 INSERT INTO S_MOVIES(movie_name,genre_id) VALUES('ROBOT',2);

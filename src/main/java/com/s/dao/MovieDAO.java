@@ -16,5 +16,6 @@ public interface MovieDAO {
 	public Movie getMovie(int movieID) throws ClassNotFoundException, SQLException, IOException;
 	public Set<Movie> getMoviesByUser(int userID) throws ClassNotFoundException, IOException, SQLException;
 	public Set<Movie> getMoviesByGenre(String genre,int userID) throws ClassNotFoundException, IOException, SQLException;
-	public String getAvgRatings(int movieID) throws SQLException, ClassNotFoundException, IOException;
+	public String getAvgRatings(int movieID) throws SQLException, ClassNotFoundException, IOException;	
+	public String getMoviesByUserJSON(int userID) throws ClassNotFoundException,SQLException, IOException;
 }

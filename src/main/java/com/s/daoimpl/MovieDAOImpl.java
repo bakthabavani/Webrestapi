@@ -28,8 +28,7 @@ public class MovieDAOImpl implements MovieDAO{
 			conn=config.getConnection();
 			pstmt=conn.prepareStatement("SELECT movie_id,movie_name,genre_id FROM S_MOVIES WHERE movie_id=?");
 			pstmt.setInt(1, movieID);
-			ResultSet rs=pstmt.executeQuery();
-			System.out.println("No Result");
+			ResultSet rs=pstmt.executeQuery();			
 			if(rs.next()){
 				return new Movie(rs.getInt("movie_id"),rs.getString("movie_name"),genreDAO.getGenre(rs.getInt("genre_id")));
 			}else{
@@ -77,11 +76,12 @@ public class MovieDAOImpl implements MovieDAO{
 		try{
 			H2DBConfigurer config=H2DBConfigurer.getConfigurer();
 			conn=config.getConnection();
-			pstmt=conn.prepareStatement("SELECT movies.movie_id mid,movies.movie_name mname,movies.genre_id gid,ratings.rating rt "
+			pstmt=conn.prepareStatement("SELECT TOP 5 movies.movie_id mid,movies.movie_name mname,movies.genre_id gid,avg(ratings.rating) rt "
 										+ "FROM S_MOVIES movies INNER JOIN S_MOVIE_RATINGS ratings "
 										+ "ON movies.movie_id=ratings.movie_id "
-										+ "INNER JOIN S_USERS users ON users.user_id=ratings.user_id WHERE movies.genre_id=? AND (users.age<=? OR users.age>=?)");
-			Genre genreObj=genreDAO.getGenre(genre);
+										+ "INNER JOIN S_USERS users ON users.user_id=ratings.user_id WHERE movies.genre_id=? AND (users.age<=? OR users.age>=?) "
+										+ "GROUP BY mid,mname ORDER BY rt");
+			Genre genreObj=genreDAO.getGenre(genre.toLowerCase());
 			if(genreObj!=null){
 				pstmt.setInt(1, genreObj.getGenre_id());
 				pstmt.setInt(2, userDAO.getUser(userID).getAge()+5 );
@@ -120,6 +120,38 @@ public class MovieDAOImpl implements MovieDAO{
 		}		
 		return "";
 	}
+
+	@Override
+	public String getMoviesByUserJSON(int userID) throws ClassNotFoundException,SQLException, IOException {
+		Connection conn=null;
+		H2DBConfigurer config=null;
+		PreparedStatement pstmt=null;
+		StringBuilder response=null;
+		try{
+			config=H2DBConfigurer.getConfigurer();
+			conn=config.getConnection();
+			pstmt=conn.prepareStatement("SELECT ratings.movie_id mid,movies.movie_name mname,avg(ratings.rating) avg_rating FROM S_MOVIES movies INNER JOIN S_MOVIE_RATINGS ratings "
+										+ "ON movies.movie_id = ratings.movie_id WHERE ratings.user_id=? "
+										+ "GROUP BY ratings.movie_id,movies.movie_name");
+			pstmt.setInt(1, userID);
+			ResultSet rs=pstmt.executeQuery();
+			response=new StringBuilder();
+			int count=0;
+			response.append("{\"movies\":[");
+			while(rs.next()){
+				response.append("{\"movie_id\":\""+rs.getInt("mid")+"\",\"movie_name\":\""+rs.getString("mname")+"\",\"avgrating\":\""+rs.getInt("avg_rating")+"\"},");
+				count++;
+			}
+			if(response.length()>1){
+				response.deleteCharAt(response.length()-1);
+			}
+			response.append("],\"total\":\""+count+"\"}");
+		}finally{
+			conn.close();
+		}	
+		return response.toString();
+	}
+	
 	
 	
 	
